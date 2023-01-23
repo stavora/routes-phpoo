@@ -1,0 +1,4 @@
+Dados do banco de dados
+
+usuário = root
+senha = 123456
