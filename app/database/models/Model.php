@@ -35,7 +35,28 @@ abstract class Model
              
         } catch (PDOException $e) {
             dd($e->getMessage());
-        }
-        
-    }       
+        }        
+    } 
+    
+    public function findBy(string $field = '', string $value = '')
+    {
+        try {
+            if(!$this->filters){
+                $sql  = "select {$this->fields} from {$this->table} where {$field} = :{$field}";                
+            } else {
+                $sql  = "select {$this->fields} from {$this->table} {$this->filters}";
+            }
+           
+           $connection = Connection::connect();
+
+           $prepare = $connection->prepare($sql);
+
+           $prepare->execute(!$this->filters ? [$field => $value] : []);
+
+           return $prepare->fetchObject(get_called_class());
+             
+        } catch (PDOException $e) {
+            dd($e->getMessage());
+        } 
+    }
 }
