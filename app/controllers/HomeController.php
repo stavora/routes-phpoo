@@ -12,11 +12,8 @@ class HomeController extends Controller
         $user = new User;
         // $user->setFilters($filters);
         $usersFound = $user->fetchAll();
-
-        foreach ($usersFound as $user1) {
-            dd($user1->teste());
-        }
-        dd($usersFound->teste());
+        
+        dd($usersFound);
 
         // $filters->dump();
 
