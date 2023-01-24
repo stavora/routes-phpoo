@@ -10,7 +10,7 @@ use app\database\Connection;
 abstract class Model
 {
     private string $fields = '*'; 
-    private string $filters = '*';
+    private string $filters = ' ';
     protected string $table; 
     
     
