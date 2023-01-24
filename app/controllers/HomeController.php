@@ -12,10 +12,16 @@ class HomeController extends Controller
         $user = new User;
         // $user->setFilters($filters);
         $usersFound = $user->fetchAll();
-        dd($usersFound->teste());
 
+        foreach ($usersFound as $user1) {
+            dd($user1->teste());
+        }
+
+        dd($usersFound->teste());
         // $filters->dump();
 
         $this->view('home', ['title' => 'Home']);
-    }    
+        
+    } 
+
 }

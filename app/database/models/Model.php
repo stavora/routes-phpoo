@@ -10,7 +10,7 @@ use app\database\Connection;
 abstract class Model
 {
     private string $fields = '*'; 
-    private string $filters = '*';
+    private string $filters = ' ';
     protected string $table; 
     
     
@@ -23,18 +23,19 @@ abstract class Model
     {   
         $this->filters = $filters->dump();      
     }
-
+    
     public function fetchAll() 
     {   
         try {
             $sql = "select {$this->fields} from {$this->table} {$this->filters}";
             $connection = Connection::connect();
-            $query = $connection->query($sql);
+            $query = $connection->query($sql);                       
             
-            return $query->fetchAll(PDO::FETCH_CLASS, get_called_class());
-
+            return $query->fetchAll(PDO::FETCH_CLASS, get_called_class());            
+             
         } catch (PDOException $e) {
             dd($e->getMessage());
         }
+        
     }       
 }
