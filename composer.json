@@ -1,0 +1,17 @@
+{
+    "name": "sylvi/routes-phpoo",
+    "autoload":{
+        "psr-4":{
+            "app\\":"app"
+        },
+        "files":[
+            "app/helpers/json.php"
+        ]
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.4"
+    },
+    "require": {
+        "league/plates": "^3.4"
+    }
+}
