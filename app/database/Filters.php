@@ -9,7 +9,7 @@ class Filters
   {
     $formatter = '';
     if (is_array($value)) {
-      $formatter = "('" . implode("','", $value) . "')";
+      $formatter = "('".implode("','", $value)."')";
     } elseif (is_string($value)) {
       $formatter = "'{$value}'";
     } elseif (is_bool($value)) {
