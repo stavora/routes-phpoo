@@ -12,14 +12,14 @@ class HomeController extends Controller
     public function index()
     {
 
-        $filters = new Filters;
-        $filters->where('id' ,'>', 0);
+        // $filters = new Filters;
+        // $filters->where('id' ,'=', 2, 'and');
 
         $user = new User;
-        $user->setFilters($filters);
-        $userFound = $user->findBy();
+        //$user->setFilters($filters);
+        $deleted = $user->delete('id', 2);
 
-        dd($userFound);
+        dd($deleted);
         // $filters->dump();
 
         $this->view('home', ['title' => 'Home']);
