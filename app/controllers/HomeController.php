@@ -12,17 +12,17 @@ class HomeController extends Controller
     public function index()
     {
 
-        // $filters = new Filters;
-        // $filters->where('id' ,'=', 2, 'and');
+        //  $filters = new Filters;
+        //  $filters->limit(1);
+        //  $filters->orderBy('id', 'asc');
 
-        $user = new User;
-        //$user->setFilters($filters);
-        $deleted = $user->delete('id', 2);
+        $user = new User();
+        // $user->setFilters($filters);
+        $userFound = $user->first('id', '');
 
-        dd($deleted);
-        // $filters->dump();
+        dd($userFound);
 
-        $this->view('home', ['title' => 'Home']);
+         $this->view('home', ['title' => 'Home']);
         
     } 
 
