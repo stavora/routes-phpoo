@@ -12,13 +12,12 @@ class HomeController extends Controller
     public function index()
     {
 
-        //  $filters = new Filters;
-        //  $filters->limit(1);
-        //  $filters->orderBy('id', 'asc');
+        $filters = new Filters;
+        $filters->join('posts','users.id','=','posts.userId','left join');
 
         $user = new User();
-        // $user->setFilters($filters);
-        $userFound = $user->first('id', '');
+        $user->setFilters($filters);
+        $userFound = $user->fetchAll();
 
         dd($userFound);
 

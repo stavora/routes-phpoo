@@ -29,6 +29,9 @@ abstract class Model
     {
         try {
             $sql = "select {$this->fields} from {$this->table} {$this->filters}";
+
+            dd($sql);
+
             $connection = Connection::connect();
             $query = $connection->query($sql);
 
@@ -58,10 +61,10 @@ abstract class Model
         }
     }
     
-    public function first($field = '', $order = 'asc')
+    public function first($field = 'id', $order = 'asc')
     {
         try {            
-            $sql = "select {$this->fields} from {$this->table} order by {$order}";
+            $sql = "select {$this->fields} from {$this->table} order by {$field} {$order} limit 1";
 
             $connection = Connection::connect();
 
@@ -86,6 +89,22 @@ abstract class Model
             $prepare = $connection->prepare($sql);
 
             return $prepare->execute(empty($this->filters) ? [$field => $value] : []);
+        } catch (PDOException $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    public function count()
+    {
+        try {            
+            $sql = "select {$this->fields} from {$this->table} {$this->filters}";
+
+            $connection = Connection::connect();
+
+            $query = $connection->query($sql);
+
+            return $query->rowCount();
+
         } catch (PDOException $e) {
             dd($e->getMessage());
         }
