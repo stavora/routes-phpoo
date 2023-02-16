@@ -42,7 +42,7 @@ abstract class Model
     public function findBy(string $field = '', string $value = '')
     {
         try {
-            $sql = (!empty($this->filters)) ?
+            $sql = (empty($this->filters)) ?
                 "select {$this->fields} from {$this->table} where {$field} = :{$field}" :
                 "select {$this->fields} from {$this->table} {$this->filters}";
 
