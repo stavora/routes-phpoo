@@ -29,6 +29,9 @@ abstract class Model
     {
         try {
             $sql = "select {$this->fields} from {$this->table} {$this->filters}";
+
+            dd($sql);
+
             $connection = Connection::connect();
             $query = $connection->query($sql);
 
@@ -57,9 +60,22 @@ abstract class Model
             dd($e->getMessage());
         }
     }
+    
+    public function first($field = 'id', $order = 'asc')
+    {
+        try {            
+            $sql = "select {$this->fields} from {$this->table} order by {$field} {$order} limit 1";
 
-    // delete from users where id = 12
-    // $user->delete('id', 12); 
+            $connection = Connection::connect();
+
+            $query = $connection->query($sql);
+
+            return $query->fetchObject(get_called_class());
+
+        } catch (PDOException $e) {
+            dd($e->getMessage());
+        }
+    }
 
     public function delete(string $field = '', string|int $value = '')
     {
@@ -73,6 +89,22 @@ abstract class Model
             $prepare = $connection->prepare($sql);
 
             return $prepare->execute(empty($this->filters) ? [$field => $value] : []);
+        } catch (PDOException $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    public function count()
+    {
+        try {            
+            $sql = "select {$this->fields} from {$this->table} {$this->filters}";
+
+            $connection = Connection::connect();
+
+            $query = $connection->query($sql);
+
+            return $query->rowCount();
+
         } catch (PDOException $e) {
             dd($e->getMessage());
         }
